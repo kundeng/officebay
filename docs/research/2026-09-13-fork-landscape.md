@@ -1,6 +1,6 @@
 # Fork landscape: what the three active forks built, and how
 
-**Date:** 2026-09-13. **Status:** research, feeds `.kiro/specs/02` R6 (fork footprint) and pillar P7
+**Date:** 2026-09-13. **Status:** research, feeds `specs/02` R6 (fork footprint) and pillar P7
 (operational independence and product identity).
 
 **Method.** Clone each fork shallow and read the source locally; branch listings and commit subjects

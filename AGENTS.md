@@ -1,6 +1,6 @@
 # officebay — agent instructions
 
-specs_root: .kiro/specs/
+specs_root: specs/
 
 **This is a fork of `genspark-ai/genoffice` (Apache-2.0), not a new application.** Provenance,
 pinned commit and the backup that protects against upstream withdrawal:
@@ -47,7 +47,7 @@ carries its own name.
 ## Skills to load
 
 - **`work-discipline`** — operating rules and engineering standards. Every task.
-- **`spec-driven-dev`** — the sprint loop. `SPECS_ROOT` is `.kiro/specs/`.
+- **`spec-driven-dev`** — the sprint loop. `SPECS_ROOT` is `specs/`.
 - **`audited-ops`** — any ops, migration, or destructive work. Artifacts live in the investigation
   directory, never a temp path; irreversible actions stop and ask first.
 - **`agentic-system-dev`** — when designing the agent/tool surface.
@@ -59,7 +59,7 @@ carries its own name.
 | `docs/steering/pillars.md` | the dimensions this product succeeds or fails on |
 | `docs/research/` | the evidence base, carried from the retired projects |
 | `references/` | third-party provenance: upstream, version, date, licence |
-| `.kiro/specs/` | sprints. Work the **ACTIVE** one; if none, the lowest-numbered DRAFT |
+| `specs/` | sprints. Work the **ACTIVE** one; if none, the lowest-numbered DRAFT |
 
 ## Verified facts worth not re-deriving
 
@@ -85,4 +85,8 @@ carries its own name.
 | `docs/design/BRIEF-*.md` | self-contained briefs for an external designer — no repo access assumed |
 | `docs/research/` | the evidence base, including the extensibility audit |
 | `references/` | third-party provenance |
-| `.kiro/specs/` | sprints |
+| `specs/` | sprints |
+
+## Windows working copy
+
+Use `officebay-win` on this machine. Origin is `kundeng/officebay`; upstream is `genspark-ai/genoffice`. Read `docs/history/2026-09-21-windows-setup.md` for the current handoff and `docs/design/2026-09-21-notebook-format.md` before notebook implementation. The priority is white-label and hosted-provider removal, followed by the shared MDLayers notebook core.

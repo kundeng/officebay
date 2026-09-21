@@ -5,7 +5,7 @@ extraction path. **Question:** if a reader asks for a markdown summary of chapte
 mathematics book, does the inherited product extract the original symbols, and what does it
 produce?
 
-This is the first executed instance of `.kiro/specs/02` R5 ("measure ingestion sufficiency"). It
+This is the first executed instance of `specs/02` R5 ("measure ingestion sufficiency"). It
 measures extraction, which is the input to any summary — a summary cannot contain notation the
 extractor never recovered.
 

@@ -1,6 +1,6 @@
 # Component decomposition: owners, seams, and where the ground moves
 
-**Date:** 2026-09-13. **Status:** research, executes `.kiro/specs/02` T2 (capability / exposure /
+**Date:** 2026-09-13. **Status:** research, executes `specs/02` T2 (capability / exposure /
 registration / composition inventory). **Companion:** `2026-09-13-codebase-walk.md` explains the
 architecture; this one inventories it.
 
