@@ -3,7 +3,7 @@
 **Date:** 2026-09-17. **Status:** evidence.
 **Relation:** corrects three claims in
 [references/handwriting.md](../../references/handwriting.md) and supplies one model correction to
-[PLAN-2026-09-17-markdown-layers.md](../steering/PLAN-2026-09-17-markdown-layers.md) §M1. Does not
+[notebook contract](../design/notebook-contract.md) §M1. Does not
 supersede either.
 
 Every other finding about Handwriting in this repo is second-hand from the plugin's own

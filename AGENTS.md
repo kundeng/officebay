@@ -1,92 +1,36 @@
-# officebay — agent instructions
+# OfficeBay agent instructions
 
 specs_root: specs/
 
-**This is a fork of `genspark-ai/genoffice` (Apache-2.0), not a new application.** Provenance,
-pinned commit and the backup that protects against upstream withdrawal:
-[`references/genoffice.md`](references/genoffice.md).
+OfficeBay is the fork at `kundeng/officebay`; upstream is `genspark-ai/genoffice`. Use `officebay-win` on Windows, branch `officebay/main`. Upstream's `CLAUDE.md` remains applicable and is not edited for fork-specific instructions.
 
-Upstream's own `CLAUDE.md` is theirs — theming rules, build gotchas, i18n sharding — and still
-applies. **Do not edit it.** Project-level instruction belongs in this file, which upstream does
-not have, so it never conflicts on a rebase.
+## Direction
 
-## What officebay is
+Preserve the existing Markdown, Docs, Sheets, Slides, PDF and HTML editor implementations. Add a separate note-document type containing multiple organized notes. Pages use Excalidraw and one shared MDLayers core. Build the extension mechanism and document manager so subsequent features attach through contributions.
 
-genoffice reads, edits and marks documents well. It has no derived-artifact layer: no document
-model finer than a page, no provenance on generated files, no map over a document, no corpus.
-officebay adds that layer, and consolidates three retired efforts into one product.
+White-labeling and removal of the original hosted dependency are separate from notebook feature changes. Enumerate their necessary existing-app edits and protect inherited behavior with regression tests. Keep required provenance and licenses.
 
-| layer | supplied by |
-|---|---|
-| read / edit / mark surface | this fork |
-| transformation and artifact generation | `@picobay/engine` (Workflow IR over LangGraph.js) |
-| ingestion | routing table — Mathpix or a frontier VLM for math PDFs, Docling for Office formats, pdf.js text for prose, platform OCR for scans |
+## Required reading and process
 
-The architecture assessment, the measured evidence, and what is genuinely left to build are in
-`docs/research/2026-09-11-officebay-consolidation.md`.
+- Load `house-rules`, `work-discipline` and `spec-driven-dev`; use `agentic-system-dev` when planning or changing agent/tool behavior.
+- Read `docs/README.md`, current `docs/steering/` and the design anchors named by the selected sprint.
+- Resolve the next unit from `specs/README.md`: the ACTIVE sprint, otherwise the first open DRAFT. Do not claim implementation from a plan.
+- Use CodeGraph for source structure, callers and impact. This clone has a local `.codegraph/` index; check freshness before relying on it. Use exact search for literals and gaps.
+- Keep one ACTIVE sprint, with requirements, design, tasks and executable acceptance evidence. Preserve every requested parity capability unless the owner explicitly changes it.
+- Keep current docs and sprint plans clean. The owner uses Git for superseded plans; do not keep parallel historical plans or archive checklists in current docs.
+- Scratch/deletion staging directories are not evidence dependencies. Keep required references in this repository or cite a stable source and pinned version.
 
-## Fork discipline — this shapes how code is written
+## Fork boundaries
 
-**Upstream `main` is a mirror, not the development tree.** Per its `CONTRIBUTING.md`, development
-happens in a private repository and `main` advances through squashed `Sync snapshot (<date>)`
-commits. So we **rebase onto snapshots**, never merge PR-by-PR.
+Implement notebook features in new contributions/packages and the shared MDLayers core. The shell currently has hardcoded registration; a small, reviewed one-time bridge is allowed by the extension plan. Later contributions must not require repeated legacy-editor changes.
 
-That makes one rule load-bearing:
-
-> **Keep our work in new packages and new files. Touch existing upstream files only in narrow,
-> named edits.** A sprawling diff across `apps/pdf/src/renderer/App.tsx` (8,652 lines) makes every
-> future snapshot painful; a new `packages/docmodel` costs nothing to carry forward.
-
-**Check `ee/` on every rebase.** It is reserved for enterprise modules under a separate licence and
-is empty of code at `d35d770`. If capabilities we depend on start landing there, the effective
-licence of what we need has changed.
-
-**Branding.** Apache-2.0 §6 does not license the GenOffice or Genspark marks. Anything we ship
-carries its own name.
-
-## Skills to load
-
-- **`work-discipline`** — operating rules and engineering standards. Every task.
-- **`spec-driven-dev`** — the sprint loop. `SPECS_ROOT` is `specs/`.
-- **`audited-ops`** — any ops, migration, or destructive work. Artifacts live in the investigation
-  directory, never a temp path; irreversible actions stop and ask first.
-- **`agentic-system-dev`** — when designing the agent/tool surface.
+Upstream publishes snapshot commits. Keep the fork diff localized for snapshot rebases. Check `ee/` and licensing boundaries on every rebase. New runtime components must reuse existing agent/provider/project owners before adding another implementation.
 
 ## Where truth lives
 
-| path | holds |
-|---|---|
-| `docs/steering/pillars.md` | the dimensions this product succeeds or fails on |
-| `docs/research/` | the evidence base, carried from the retired projects |
-| `references/` | third-party provenance: upstream, version, date, licence |
-| `specs/` | sprints. Work the **ACTIVE** one; if none, the lowest-numbered DRAFT |
-
-## Verified facts worth not re-deriving
-
-- **All `packages/*` are Electron-free.** No package declares an `electron` dependency, so an
-  online tier reuses the engine layer unchanged and replaces `apps/*/src/main` plus the shell.
-  Electron is the desktop host, not the architecture.
-- **Kuzu and LadybugDB are not storage-compatible.** A file written by one is unreadable by the
-  other; the 4-byte header (`LBUG` / `KUZU`) decides, which is why the viewer carries two engines.
-  Fork lineage buys source compatibility, not format compatibility.
-- **Docling scores 0/70 on math assertions** — it emits `formula-not-decoded`. Use its *schema*
-  (`DoclingDocument`) as the L1 contract; never as the math parser.
-- **genoffice's PDF read path has no math handling at all.** Answers about equations on a
-  legacy-encoded PDF are reconstructed from model priors, not extracted. On a modern Unicode-mapped
-  PDF they are grounded. Nothing tells the reader which case they are in.
-
-## Document map
-
-| path | holds |
-|---|---|
-| `docs/steering/product.md` | the thesis, the audience constraint, the four mark renderings, build order |
-| `docs/steering/tech.md` | the stack, settled decisions, ingestion routing, anchoring, open questions |
-| `docs/steering/pillars.md` | P1–P5 and current state |
-| `docs/design/BRIEF-*.md` | self-contained briefs for an external designer — no repo access assumed |
-| `docs/research/` | the evidence base, including the extensibility audit |
-| `references/` | third-party provenance |
-| `specs/` | sprints |
-
-## Windows working copy
-
-Use `officebay-win` on this machine. Origin is `kundeng/officebay`; upstream is `genspark-ai/genoffice`. Read `docs/history/2026-09-21-windows-setup.md` for the current handoff and `docs/design/2026-09-21-notebook-format.md` before notebook implementation. The priority is white-label and hosted-provider removal, followed by the shared MDLayers notebook core.
+- `docs/steering/`: product, technical ownership and pillar health.
+- `docs/design/`: current notebook, extension, document-manager, data and parity contracts.
+- `docs/research/onenote-revisions.md`: revision-store explanation and design implications.
+- `docs/research/`: measured evidence; older investigations do not override current design.
+- `references/`: pinned outside provenance/design evidence.
+- `specs/`: the current ordered sprint plans. No dot-prefixed spec directory.

@@ -12,7 +12,7 @@ needs to compare the three candidate slices on cost rather than intuition.
 ## 1. Where the plan stands
 
 Checked item by item against the tree on 2026-09-17. **None of the thirteen steps in
-`docs/steering/PLAN-2026-09-13.md` (A1–A3, B1–B2, C1–C5, D, E) has landed.** The seams each
+the earlier implementation proposal (A1–A3, B1–B2, C1–C5, D, E) has landed.** The seams each
 step targets are present and unchanged: `AgentLoopEvents` (`packages/agent-core/src/loop.ts:32`)
 has two callers, both internal; `extractIrDocument` (`packages/pdf2docx/src/pipeline.ts:261`) is
 callable but `tools/probe-math-extraction.mjs` still measures only `getTextContent()` (line 42);

@@ -2,105 +2,70 @@
 spec_id: 01-fork-foundation
 status: CLOSED
 closed_as: SHIPPED
-since: 2026-09-11
-until: 2026-09-11
+since: 2026-09-21
+until: null
 epic: foundation
-features: [evidence-consolidation, fork-provenance, steering-reset]
+features: [fork-provenance, existing-and-planned-map]
 supersedes: []
 superseded_by: null
 depends_on: []
-anchors: [product, tech, pillars]
+anchors: [notebook-contract]
 ---
 
-# 01 · Establish officebay as a fork-and-improve product
-
-# 1 · Requirements
-
-## Introduction
-
-officebay begins from genoffice's shipped applications and extends them. Earlier planning correctly
-preserved the retired pdfbay/notebay evidence but then described the new product largely as a list of
-systems yet to build. That framing risks replacing capabilities whose implementation, IPC, or tool
-seams already exist.
-
-This foundation sprint establishes durable provenance, preserves the useful archived evidence, and
-rewrites steering around the whole fork. It writes no product code.
-
-## Requirements
-
-**R1 — Preserve provenance and evidence.** The fork records its upstream commit, licence, publication
-model, and backup. Load-bearing pdfbay/notebay research remains available in the repo or verified
-archive.
-
-**R2 — Define product identity.** Product policy states that officebay is genoffice plus a narrowly
-integrated document/artifact layer, not a greenfield office implementation.
-
-**R3 — Account for inherited product health.** Pillars cover the complete shipped fork, including
-format fidelity, agent composition, rebase sustainability, and release identity—not only new
-packages.
-
-**R4 — Classify gaps before building.** Technical policy distinguishes missing capability, exposure,
-registration, and composition, and separates inherited contracts from planned components and
-experiments.
-
-**R5 — Retire premature sequencing.** Math grounding remains an evidence need, but no implementation
-sprint starts until an inherited baseline and one end-to-end extension slice are selected.
-
-## Out of scope
-
-- Product code or changes under `apps/` and `packages/`.
-- Selecting the first vertical slice.
-- Activating a math, document-model, or artifact implementation sprint.
-- Importing archived implementation choices such as EmbedPDF, Mastra, SurrealDB, or a PageSlice
-  ProseMirror shell as officebay policy.
-
-# 2 · Design
+# 01 - Fork foundation
 
 ## Mental Model & Invariants
 
+Keep GenOffice's existing document editors. Add an extension mechanism, a document manager and a separate note-document type containing organized notes, with an Excalidraw/MDLayers core. White-label the suite. This foundation delivers a map and provenance, not notebook implementation.
+
+## Requirements
+
+- R1: The repository SHALL identify its origin, upstream, baseline and local Windows working copy.
+- R2: The foundation SHALL distinguish existing implementation from planned additions and name each owner.
+- R3: The plan SHALL preserve existing editor behavior and explicitly bound one-time shell integration edits.
+
+## Design
+
+The fork owns new packages and contributions. Existing editors stay available through their current entry points. The extension mechanism supplies the future attachment points; the document manager coordinates documents; the new note-document contribution owns organized notes. The shared MDLayers package supplies portable page/mark semantics.
+
+| Existing implementation | Planned addition |
+|---|---|
+| `apps/{docs,sheets,slides,pdf,markdown,html}` | Separate `apps/notebook`; no notebook features inserted in those editors |
+| Explicit shell router, TabManager and TabKind | Contribution registration and document lifecycle adapters |
+| `packages/project-store` project/file/chat APIs | Generic document manager plus note-document section/note catalog |
+| `packages/agent-core` and `packages/ai-provider` | Notebook AgentSkill and independent replacements for hosted capabilities |
+| Format engines and shared UI/i18n utilities | Shared MDLayers codec/model, notebook UI, layers and mark registry |
+| Session/agent snapshot hooks | Durable note-document revisions and conflict recovery |
+| Suite packaging and existing test suites | OfficeBay identity, endpoint guard and complete parity evidence |
+| MDLayers design and measurements | One reusable core implementation plus three host adapters |
+
+```mermaid
+flowchart LR
+    Fork[OfficeBay fork] --> Existing[Existing GenOffice editors]
+    Fork --> Extensions[New extension mechanism]
+    Extensions --> Manager[Document manager]
+    Manager --> Notes[Note document containing organized notes]
+    Notes --> Core[Shared MDLayers core]
+    Core --> Hosts[OfficeBay / VS Code / Obsidian]
 ```
-officebay = inherited genoffice product
-          + narrow exposure and composition
-          + genuinely missing document/artifact capabilities
+
+```mermaid
+sequenceDiagram
+    actor Owner
+    participant Map as Foundation map
+    participant Source as Repository source and CodeGraph
+    Owner->>Map: Preserve existing editors; add note documents
+    Map->>Source: Inspect existing owners and extension seams
+    Source-->>Map: Implemented owners and missing boundaries
+    Map-->>Owner: Current map and ordered DRAFT queue
 ```
 
-- Inherited behavior is officebay behavior and must be protected.
-- Missing agent access does not prove missing product capability.
-- Archived projects supply requirements and evidence, not binding implementation architecture.
-- `@picobay/engine` remains the transformation owner.
-- Upstream edits stay narrow because snapshot rebases are part of the product cost.
+## Tasks and Checks
 
-## Deliverables
+- [x] T1 (R1): Origin is `kundeng/officebay`; upstream is `genspark-ai/genoffice`; branch `officebay/main`; Windows working copy `officebay-win`. Provenance remains in `references/genoffice.md`.
+- [x] T2 (R2): Map implemented/planned owners above, with source-grounded detail in `docs/design/feature-parity.md` and `extension-mechanism.md`. CodeGraph inspected router, tab types/lifecycle and agent composition.
+- [x] T3 (R3): Record the separate note-document boundary in `docs/design/notebook-contract.md` and prepare the ordered queue.
 
-1. Upstream provenance and verified retirement archives.
-2. `docs/steering/product.md` separating inherited baseline, settled policy, and hypotheses.
-3. `docs/steering/pillars.md` describing health of the complete fork.
-4. `docs/steering/tech.md` separating inherited contracts, extension seams, new boundaries, and
-   experiments.
-5. A successor DRAFT focused on baseline evidence and selecting one vertical slice.
+## Completion Boundary
 
-# 3 · Tasks
-
-- [x] Preserve upstream provenance and archive pdfbay/notebay with verified checksums.
-- [x] Carry load-bearing research and the self-reference spike into the fork.
-- [x] Correct the capability audit where absent wiring had been read as absent implementation.
-- [x] Rewrite product policy around fork-and-improve ownership.
-- [x] Rewrite pillars around whole-product health.
-- [x] Rewrite technical policy around inherited contracts and narrow extension seams.
-- [x] Replace the premature math implementation sprint with a fork-baseline successor.
-
-# 4 · Checks
-
-- [x] `references/genoffice.md` identifies the pinned upstream and backup.
-- [x] `~/Projects/TBD/README.md` records verified archives and restoration.
-- [x] Product policy explicitly classifies capability/exposure/registration/composition gaps.
-- [x] Pillars include inherited format behavior and fork sustainability.
-- [x] Technical policy labels math grounding and displacement as experiments rather than shipped
-      architecture.
-- [x] No product source files changed in this sprint.
-
-# 5 · Close
-
-Closed `SHIPPED` on 2026-09-11. The original retirement work and the steering correction form one
-foundation unit: evidence is preserved, and the next sprint now starts from the actual fork rather
-than an imagined blank implementation.
+Closed as a documentation foundation. No notebook, extension registry or document-manager implementation is claimed. Application behavior and feature completeness are verified in the later baseline and implementation sprints. Source anchors: `apps/shell/src/main/index.ts`, `apps/shell/src/main/tab-manager.ts`, `apps/shell/src/shared/tabs-api.ts`, `packages/agent-core/src/skill.ts`, `packages/project-store/src/index.ts`.
