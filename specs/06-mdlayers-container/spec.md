@@ -9,7 +9,7 @@ features: [shared-page-codec, obsidian-container-roundtrip]
 supersedes: []
 superseded_by: null
 depends_on: [05-independent-officebay]
-anchors: [notebook-contract, data-architecture]
+anchors: [notebook-contract, data-architecture, editor-adaptation, replay]
 ---
 
 # 06 - Prove the shared MDLayers container
@@ -25,6 +25,8 @@ Pillars advanced: P3, P6. Canonical shared-state rules: `docs/design/data-archit
 - **R1:** WHEN a supported page is read/written, the codec SHALL preserve untouched bytes and unknown fields.
 - **R2:** WHEN another host saves a page, layer and identity metadata SHALL survive or adoption SHALL stop for redesign.
 - **R3:** WHEN consumed by OfficeBay, the shared core SHALL be pinned and independent of host APIs.
+
+- **R5:** WHEN the core is built, source-derived codec behavior SHALL be proven against pinned plugin fixtures and shared by all consuming hosts.
 
 ## Out of Scope
 
@@ -91,5 +93,8 @@ No task may turn an untested compatibility claim into a passing result. Use non-
   Acceptance: Recorded real save diff retains layer table, membership, embedded-file mappings and unknown data.
 - [ ] **T3 - package (R3).** Publish or produce a reproducible pinned package artifact from MDLayers; add dependency and contract tests here without copying its implementation.
   Acceptance: Pure codec/model graph has no DOM/Electron/Obsidian/VS Code/filesystem imports; clean install resolves the same version.
+
+- [ ] **T5 - reference adaptation (R5).** Apply editor-adaptation to the Obsidian Excalidraw container and engine boundary; prototype optional history locator preservation, detached page opening and bundled track export.
+  Acceptance: No-op/changed-section round trips preserve links, embeds and unknown fields; absence of history does not prevent page editing; no duplicate host codec.
 
 - [ ] **Review gate.** Reconcile requirements - tasks - evidence and check S1-S13/Q1-Q7 as applicable. Record each deviation; update the parity matrix, guides and pillar facts. Close only after its own walkthrough and failure checks pass.

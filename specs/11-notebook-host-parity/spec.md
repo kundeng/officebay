@@ -9,7 +9,7 @@ features: [notebook-cross-host-parity, notebook-release-evidence]
 supersedes: []
 superseded_by: null
 depends_on: [10-notebook-agent]
-anchors: [notebook-contract, data-architecture]
+anchors: [notebook-contract, data-architecture, editor-adaptation, replay]
 ---
 
 # 11 - Verify host reuse and complete parity
@@ -26,6 +26,8 @@ Pillars advanced: P1, P2, P3, P6, P7. Canonical shared-state rules: `docs/design
 - **R2:** WHEN history travels across hosts, its completeness and restoration guarantees SHALL remain visible.
 - **R3:** BEFORE calling the notebook complete, every GenOffice/MDLayers parity row SHALL have executed evidence or an owner-approved disposition.
 - **R4:** WHEN shipped, the Windows artifact SHALL contain the separate notebook and retain existing editors without regression.
+
+- **R5:** WHEN a document crosses hosts, its reference-derived behavior and recorded replay coverage SHALL remain explicit and compatible.
 
 ## Out of Scope
 
@@ -94,5 +96,8 @@ No task may turn an untested compatibility claim into a passing result. Use non-
   Acceptance: No unresolved parity row, hidden reduction in scope or unmeasured feature marked passed.
 - [ ] **T4 - release (R4).** Build/install cleanly, run all affected tests and real journeys, inspect exported outputs, update guides and reconcile the allowed upstream diff.
   Acceptance: No notebook-driven changes in existing editor implementations; network guard passes; clone/install/launch and inherited journeys recorded.
+
+- [ ] **T5 - adaptation and replay parity (R5).** Run shared codec/ink/review fixtures in all three hosts; capture where supported, preserve tracks elsewhere, and test external edits, detached pages, rename/copy/export and missing history.
+  Acceptance: No host fabricates timing or discards unknown tracks; normal pages remain editable; compatibility claims name actual plugin versions and measured journeys.
 
 - [ ] **Review gate.** Reconcile requirements - tasks - evidence and check S1-S13/Q1-Q7 as applicable. Record each deviation; update the parity matrix, guides and pillar facts. Close only after its own walkthrough and failure checks pass.

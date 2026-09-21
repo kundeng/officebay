@@ -9,7 +9,7 @@ features: [notebook-parity-baseline, notebook-integration-contracts]
 supersedes: []
 superseded_by: null
 depends_on: [01-fork-foundation]
-anchors: [notebook-contract, data-architecture]
+anchors: [notebook-contract, data-architecture, editor-adaptation, replay]
 ---
 
 # 02 - Baseline the separate notebook and enumerate parity
@@ -26,6 +26,8 @@ Pillars advanced: P1, P6. Canonical shared-state rules: `docs/design/data-archit
 - **R2:** WHEN the notebook is integrated, its shell routing, persistence, UI and agent boundaries SHALL be named without repurposing an existing editor.
 - **R3:** BEFORE implementation, notebook hierarchy, rich text, references, shared-core release consumption and revision scope SHALL have reviewed contracts.
 - **R4:** WHEN the old research is reused, claims SHALL be checked against current code and the owner-selected notebook journey.
+
+- **R5:** BEFORE new core/editor implementation, the baseline SHALL pin reference components, measure adaptation fixtures and review the GenOffice-grounded UI study including replay coverage states.
 
 ## Out of Scope
 
@@ -94,5 +96,8 @@ No task may turn an untested compatibility claim into a passing result. Use non-
   Acceptance: Each state boundary has a schema owner, read path and failure behavior; no unowned store.
 - [ ] **T4 - reconcile (R4).** Refresh the owner inventory and select note-document fixtures including rich text, math, printouts and multiple organized notes.
   Acceptance: The inventory matches the current note-document direction and records untested inherited journeys.
+
+- [ ] **T5 - adaptation and UI (R5).** Trace Handwriting, Sidemark/MRSF, Cherry, MPE/Crossnote and Excalidraw source slices using editor-adaptation; choose dependency/adaptation/independent implementation per component. Review the prototype and Claude design request; test the proposed timed-capture and standalone-page locator experiments.
+  Acceptance: Each source has a symbol, version, reuse boundary, target owner and proving fixture; unresolved browser/host coupling and replay timing gaps remain explicit.
 
 - [ ] **Review gate.** Reconcile requirements - tasks - evidence and check S1-S13/Q1-Q7 as applicable. Record each deviation; update the parity matrix, guides and pillar facts. Close only after its own walkthrough and failure checks pass.

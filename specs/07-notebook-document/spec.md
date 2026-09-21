@@ -9,7 +9,7 @@ features: [notebook-document-lifecycle, notebook-page-editor]
 supersedes: []
 superseded_by: null
 depends_on: [06-mdlayers-container]
-anchors: [notebook-contract, data-architecture, document-manager, extension-mechanism]
+anchors: [notebook-contract, data-architecture, document-manager, extension-mechanism, editor-adaptation, replay]
 ---
 
 # 07 - Add the separate notebook document type
@@ -26,6 +26,8 @@ Pillars advanced: P1, P3, P6. Canonical shared-state rules: `docs/design/data-ar
 - **R2:** WHEN users edit a notebook, supported text/canvas operations SHALL satisfy the approved parity rows.
 - **R3:** WHEN users print/export/present, authored notebook content SHALL remain faithful to the selected page bounds and output contract.
 - **R4:** WHEN a save races an external change or fails, the notebook SHALL retain recoverable user work.
+
+- **R5:** WHEN notebook text/rendering surfaces are implemented, the approved UI and measured Cherry/MPE adaptation decisions SHALL govern the new contribution.
 
 ## Out of Scope
 
@@ -95,5 +97,8 @@ No task may turn an untested compatibility claim into a passing result. Use non-
   Acceptance: Theme does not change exported document colors; page/selection bounds and referenced assets verified on exported artifacts.
 - [ ] **T4 - save (R4).** Use document-manager expected-base coordination and host persistence for autosave/Save As/recovery; preserve the manager's document/note identities.
   Acceptance: Read-only files, stale base, missing dependencies and interrupted writes produce no silent overwrite.
+
+- [ ] **T5 - editor adaptation and UI (R5).** Measure Cherry syntax/menu/edit-preview behavior and MPE/Crossnote rendering/export seams; implement selected patterns in new notebook cards and shared browser services. Review U01 design states.
+  Acceptance: Tables, math, images, selection/undo and exports have proving fixtures; existing editors remain unchanged; filesystem/process dependencies stay outside the pure core.
 
 - [ ] **Review gate.** Reconcile requirements - tasks - evidence and check S1-S13/Q1-Q7 as applicable. Record each deviation; update the parity matrix, guides and pillar facts. Close only after its own walkthrough and failure checks pass.

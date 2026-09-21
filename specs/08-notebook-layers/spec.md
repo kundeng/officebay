@@ -9,7 +9,7 @@ features: [notebook-layers-and-marks, notebook-sidecar-anchoring]
 supersedes: []
 superseded_by: null
 depends_on: [07-notebook-document]
-anchors: [notebook-contract, data-architecture]
+anchors: [notebook-contract, data-architecture, editor-adaptation, replay]
 ---
 
 # 08 - Deliver MDLayers behavior in the notebook
@@ -26,6 +26,8 @@ Pillars advanced: P1, P3. Canonical shared-state rules: `docs/design/data-archit
 - **R2:** WHEN a source is moved/scaled/embedded twice, its marks SHALL stay in its source coordinates.
 - **R3:** WHEN external source text changes, ink/review codecs SHALL preserve unknown data and expose stale or orphaned anchors.
 - **R4:** WHEN users write with pen or mouse, pressure, drawing, smoothing and erasing SHALL persist with usable input behavior.
+
+- **R5:** WHEN ink is recorded, accepted input SHALL preserve pressure, source coordinates and monotonic per-point timing before geometry simplification.
 
 ## Out of Scope
 
@@ -95,5 +97,8 @@ No task may turn an untested compatibility claim into a passing result. Use non-
   Acceptance: Rename/hash, image surface, text edits before/inside anchor, missing source and duplicate placement fixtures pass.
 - [ ] **T4 - capture (R4).** Implement reusable browser capture/render layer; measure Windows input and accessibility; verify presentation/annotation views share the model.
   Acceptance: Record real device behavior and deterministic stroke geometry/erase tests; no claim of iPad parity from desktop tests.
+
+- [ ] **T5 - replay-ready layer events (R5).** Independently adapt measured Handwriting capture/sidecar behavior and Sidemark anchoring; expose accepted layer/ink/erase/transform/undo events under replay.md.
+  Acceptance: Timed synthetic and Windows pen fixtures survive serialization; legacy timing is validated and coverage declared; layer locks reject mutations; no invented times for geometry-only strokes.
 
 - [ ] **Review gate.** Reconcile requirements - tasks - evidence and check S1-S13/Q1-Q7 as applicable. Record each deviation; update the parity matrix, guides and pillar facts. Close only after its own walkthrough and failure checks pass.

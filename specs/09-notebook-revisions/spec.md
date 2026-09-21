@@ -5,14 +5,14 @@ closed_as: null
 since: 2026-09-21
 until: null
 epic: notebook/history
-features: [notebook-revision-history, notebook-conflict-recovery]
+features: [notebook-revision-history, notebook-conflict-recovery, notebook-recorded-replay]
 supersedes: []
 superseded_by: null
 depends_on: [08-notebook-layers]
-anchors: [notebook-contract, data-architecture, document-manager, extension-mechanism]
+anchors: [notebook-contract, data-architecture, document-manager, extension-mechanism, editor-adaptation, replay]
 ---
 
-# 09 - Add durable notebook history and conflict recovery
+# 09 - Add durable history, recorded replay and conflict recovery
 
 ## Mental Model & Invariants
 
@@ -29,6 +29,8 @@ Pillars advanced: P1, P3. Canonical shared-state rules: `docs/design/data-archit
 
 - **R5:** WHEN a checkpoint targets the note document, its catalog, section/note membership and ordering SHALL be captured; a single-note checkpoint SHALL declare its narrower scope.
 
+- **R6:** WHEN a recorded session is replayed, the system SHALL reconstruct timed accepted actions against archived dependencies, label unrecorded gaps and leave live documents unchanged.
+
 ## Out of Scope
 
 No native `.one` codec, CRDT/live collaboration or byte-level OneNote storage reproduction.
@@ -37,11 +39,11 @@ No native `.one` codec, CRDT/live collaboration or byte-level OneNote storage re
 
 ### End-to-End Walkthrough
 
-The user checkpoints a page, changes a linked note and adds ink, then previews the older checkpoint. Preview shows archived dependencies. Restoring creates a new revision and does not rewind source documents shared with other pages.
+The user checkpoints a page, starts recording, changes a linked note and adds ink, then plays/scrubs the recorded actions in a read-only scene. An external unrecorded edit appears as a snapshot gap. The user can also preview the older checkpoint. Preview shows archived dependencies. Restoring creates a new revision and does not rewind source documents shared with other pages.
 
 ### Ownership and Configuration
 
-History capture cadence/quota/pruning are runtime settings owned by notebook history. Start with explicit checkpoints and no automatic pruning; measure timed capture defaults.
+History capture cadence/quota/pruning are runtime settings owned by notebook history. Start with explicit checkpoints, explicit recording sessions and no automatic pruning. Measure chunk/keyframe limits; recording and checkpoint cadence are separate settings.
 
 All production boundaries require typed validation. Existing source locations are candidates grounded in the baseline, not permission for broad edits. Each implementation task records its exact source paths and tests before writing. Shared state conforms to the anchor rather than maintaining a second schema here.
 
@@ -101,5 +103,8 @@ No task may turn an untested compatibility claim into a passing result. Use non-
 
 - [ ] **T5 - aggregate history (R5).** Implement note-document versus single-note checkpoints through document-manager identities and catalog persistence.
   Acceptance: Restore a document with renamed/reordered/deleted notes; verify catalog membership and retained history. Restoring one note leaves other notes and shared sources unchanged.
+
+- [ ] **T6 - recorded replay (R6).** Implement replay.md tracks, versioned reduction, durable chunks/keyframes, explicit recording, play/pause/scrub/speed and branch/coverage UI. Include typed command events and dependency capture.
+  Acceptance: Seek is deterministic; final reduced state matches saved scene; external edits show snapshot gaps; missing chunks/crashes preserve current pages; pruning retains reachable replay data; restore selects verified checkpoints.
 
 - [ ] **Review gate.** Reconcile requirements - tasks - evidence and check S1-S13/Q1-Q7 as applicable. Record each deviation; update the parity matrix, guides and pillar facts. Close only after its own walkthrough and failure checks pass.

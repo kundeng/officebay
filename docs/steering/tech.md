@@ -13,7 +13,7 @@
 | Filesystem and native integration | Host persistence/IPC adapters |
 | AI loop and providers | Existing agent-core and ai-provider; notebook AgentSkill |
 | Projects and chat | Existing project-store |
-| Notebook revisions | Shared revision contract with host persistence, separate from chat and undo |
+| Notebook revisions and replay | Shared snapshot/reducer contracts with host persistence and browser timing capture; separate from chat/undo |
 | Import/export/conversion | Existing format engines where applicable; explicit notebook adapters |
 
 ## Integration rules

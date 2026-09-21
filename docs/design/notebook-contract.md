@@ -32,3 +32,7 @@ MDLayers owns the reusable container, canvas/layer/placement models, sidecar cod
 Pure model and codec code has no DOM, Electron, filesystem, VS Code or Obsidian imports. Rendering and pointer capture belong in a separate reusable browser layer where needed. Host adapters own file access, dialogs, lifecycle and native editor integration.
 
 Marks belong to the canvas they describe; containers store placements. Hidden layers remain persisted. Unknown fields survive edits. Referenced notes, images and PDF pages retain their identities. Third-party mark kinds have visible fallback behavior rather than silent deletion.
+
+## Implementation sources and replay
+
+MDLayers is not implemented. Follow the [editor adaptation map](editor-adaptation.md) to read, measure and adapt successful ink, review, Markdown and Excalidraw components into one shared core. New notebook surfaces use those patterns without replacing existing editors. [Timed replay](replay.md) adds recorded actions alongside immutable checkpoints and ordinary Excalidraw pages; snapshot-only changes remain visibly discrete.

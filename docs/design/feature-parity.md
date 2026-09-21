@@ -75,3 +75,14 @@ R01: immutable checkpoints survive restart. R02: preview uses archived dependenc
 | D03 | Lifecycle coordination | Multiple dirty notes, Save As, close cancellation, two-window conflict | Document manager |
 | D04 | Cross-feature identity | Project/chat/search/history/agent consumers agree on document and note IDs | Document manager |
 | D05 | Aggregate history | Revisions capture catalog/membership and distinguish note from document restore | Revisions |
+
+## Adaptation, replay and UI evidence
+
+| ID | Capability | Proof required | Owner |
+|---|---|---|---|
+| A01 | Reference-based implementation | Pinned source/symbol, reuse decision, behavior fixture and new-core comparison for each [adaptation](editor-adaptation.md) | Baseline, Container, Notebook editor, Layers |
+| R07 | Timed authoring replay | Pressure/time preservation; play/pause/seek/speed; deterministic archived scene, live bytes unchanged | Layers, Revisions |
+| R08 | Honest replay coverage | External/geometry-only edits show gaps; import timing coverage declared; incomplete/branched tracks retained | Revisions, Host parity |
+| U01 | GenOffice-grounded notebook UI | Review source screenshots and interactive design study; hierarchy, layers, agent and versions/replay in desktop and narrow layouts | Baseline, Notebook editor |
+
+These rows are planned and unimplemented. The prototype supplies design evidence, not application or format compatibility evidence.

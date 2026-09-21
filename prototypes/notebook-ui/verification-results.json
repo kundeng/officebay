@@ -1,0 +1,77 @@
+﻿{
+    "checks":  18,
+    "results":  [
+                    {
+                        "label":  "Different note selected",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Text retained per note",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Ink hidden without deletion",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Layer locked",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Explicit recording state",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Replay read-only",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Play advances timed stroke",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Pause holds position",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Speed changes elapsed progress",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Gap holds missing external card",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Next snapshot applies discretely",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Replay preserved live edit",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Checkpoint preview guarded",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Checkpoint preview preserved live edit",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Restore appends version",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Restore exits preview and retains checkpoint scene",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "New note initial state",
+                        "pass":  true
+                    },
+                    {
+                        "label":  "Dark chrome theme",
+                        "pass":  true
+                    }
+                ]
+}

@@ -1,0 +1,25 @@
+{
+  "specMetadata": { "mode": "retrofit", "platform": "electron", "confidence": "medium", "downstreamContract": "specs/07-notebook-document", "notes": ["Interactive design study only; no production implementation or parity claim."] },
+  "starterPackDecision": { "strategy": "extend-existing", "detectedStack": { "framework": "React/TypeScript", "uiLibrary": "packages/ui", "styling": "CSS semantic tokens", "routing": "Electron shell document routes", "buildSystem": "workspace/Vite" }, "adaptationNotes": ["Prototype uses dependency-free HTML/SVG/JS to evaluate layout without changing editor packages."] },
+  "platformConstraints": { "platform": "electron", "hardRules": ["Production renderer receives validated host services through preload IPC; no direct filesystem writes.", "Add notebook as a contribution, preserve existing editor implementations.", "Use shared semantic chrome tokens and retained i18n ownership."], "forbiddenPatterns": ["Copying MDLayers core into OfficeBay", "Presenting animation synthesized from checkpoint diffs as captured pen timing"] },
+  "designBrief": {
+    "productContext": { "screenName": "OfficeBay note document", "primaryUserGoal": "Organize notes, write on a page, inspect how it evolved", "primaryActions": ["Choose note", "Write", "Replay captured work", "Preview version", "Restore as new"] },
+    "layout": { "shell": "Existing tab strip, compact ribbon, agent pane, status bar", "regions": ["Optional agent pane at left", "Sections and notes", "Page canvas", "Layers or Versions inspector", "Optional replay tray"], "responsiveReflow": ["Below 1300px agent becomes a dismissible overlay", "Below 1050px inspector becomes a dismissible overlay", "Below 760px note navigation becomes a dismissible overlay; retain canvas and replay controls"] },
+    "components": [
+      { "name": "NoteNavigator", "states": ["selected note", "empty new note", "collapsed section"] },
+      { "name": "PageCanvas", "states": ["write", "locked layer", "read-only replay", "read-only checkpoint"] },
+      { "name": "LayerInspector", "states": ["visible", "hidden", "locked"] },
+      { "name": "VersionInspector", "states": ["current", "note preview", "document checkpoint labeled separately", "restored new revision"] },
+      { "name": "ReplayTray", "states": ["paused", "playing", "scrubbing", "unknown interval", "complete"], "notes": ["Captured paths reveal with elapsed timing; unknown changes jump at next snapshot."] }
+    ],
+    "designSystem": { "colorRoles": { "chrome": "packages/ui/src/tokens.css", "accent": "notebook-scoped teal", "document": "authored warm white paper with dark ink, theme invariant" }, "typography": { "style": "existing Arial/Segoe UI sans chrome; document headings and handwritten SVG marks" }, "spacing": [4, 8, 16, 24, 32], "motion": ["requestAnimationFrame for user-started replay; no autoplay"] },
+    "contentModel": { "dataEntities": ["note document", "section", "note", "page", "layer", "mark", "immutable revision", "adjacent replay track"], "mockDataNeeded": true },
+    "accessibility": { "keyboardNotes": ["Native buttons/select/range", "Visible focus", "Editable text named", "Escape closes transient inspectors", "Read-only states disable editing controls"], "semanticNotes": ["Named regions", "Status feedback", "Text labels distinguish captured timing and unknown intervals"] },
+    "inferred": ["Teal is a proposed notebook accent, not a suite-wide rebrand.", "Replay tray is note-scoped; document history remains explicitly aggregate."]
+  },
+  "developerBrief": { "goal": "Review spatial organization and interaction states before production work", "architectureNotes": ["One .excalidraw.md per note; replay is an adjacent synchronized track, storage contract belongs to docs/design/replay.md and data-architecture.md.", "History restores append new versions; preview never mutates live note."], "riskNotes": ["Prototype uses SVG, not Excalidraw; no persistence, provider calls, or real editor embedding."] },
+  "adaptationOrFilePlan": { "filesOrModules": [{ "pathOrArea": "prototypes/notebook-ui", "purpose": "Isolated browser study", "changeType": "create" }, { "pathOrArea": "docs/design/claude-ui-design-request.md", "purpose": "Design review request", "changeType": "create" }] },
+  "acceptanceCriteria": ["Navigate multiple notes in two sections", "Write with pointer and edit text", "Hide/lock ink layer", "Play/pause/scrub/change replay speed", "Show gaps without fabricated strokes", "Preview version without editing", "Restore creates a new visible version", "Capture desktop and narrower screenshots"],
+  "handoffNotes": { "preferredNextStep": "design-review", "unknowns": ["Production replay storage and crash consistency are owned by parent architecture work", "Pen pressure, latency and Excalidraw parity require real-host evaluation"] },
+  "verificationChecklist": [{ "name": "browser interactions", "checks": ["Navigation, edit guards, replay progress, discrete gap transition, restore, responsive panels, theme, console"] }]
+}

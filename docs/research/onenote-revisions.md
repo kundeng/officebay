@@ -30,7 +30,7 @@ If another device edits A while this device edits B, there are two descendants. 
 
 ## Apply the ideas to Excalidraw pages
 
-The chosen file format remains `.excalidraw.md`. A separate, non-dot-prefixed history directory can hold immutable snapshots and manifests. The first version should use full byte snapshots with content-addressed deduplication, not an operation log whose replay depends on changing plugin code. Deltas can be measured later.
+The chosen file format remains `.excalidraw.md`. A separate, non-dot-prefixed history directory can hold immutable snapshots and manifests. Recovery uses full byte snapshots with content-addressed deduplication. Animated replay additionally needs versioned timed events; snapshots alone do not retain gesture timing. The [replay contract](../design/replay.md) defines recording, coverage gaps and file integration. Snapshot recovery remains usable independently of event-reducer availability. Storage deltas can be measured later.
 
 A revision manifest records page identity, parent revision, authored page bytes, layer/ink/comment sidecars, referenced dependency versions, actor, reason, and timestamp. The blobs preserve unknown fields and compression exactly. A manifest is browsable only after every required blob exists and passes its digest check. A synced manifest arriving before its blobs is shown as incomplete, not corrupt current content.
 

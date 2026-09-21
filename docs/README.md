@@ -11,6 +11,9 @@
 - [Extension mechanism](design/extension-mechanism.md): full contribution map and the bounded shell bridge.
 - [Document manager](design/document-manager.md): managed documents, sections and organized notes.
 - [Data architecture](design/data-architecture.md): authoritative state, derived state, revisions and failure recovery.
+- [Editor adaptation](design/editor-adaptation.md): read, measure and adapt working editors into the unimplemented shared core.
+- [Recorded replay](design/replay.md): timed tracks alongside compatible Excalidraw pages and revision snapshots.
+- [UI study](../prototypes/notebook-ui/README.md) and [Claude design request](design/claude-ui-design-request.md): isolated prototype and visual handoff.
 - [Feature parity](design/feature-parity.md): GenOffice and MDLayers capability families and acceptance ownership.
 
 These are implementation proposals where labeled; the product direction is agreed. Baseline evidence must resolve open technical choices before the corresponding sprint activates.

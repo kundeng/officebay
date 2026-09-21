@@ -1,0 +1,32 @@
+// Chromium CDP pointer check; pass the browser CDP URL printed by agent-browser get cdp-url.
+const endpoint = new URL(process.argv[2]);
+const tabs = await (await fetch(`http://${endpoint.host}/json/list`)).json();
+const tab = tabs.find((candidate) => candidate.url.includes('/notebook-ui/index.html'));
+if (!tab) throw new Error('Open the notebook UI study first.');
+const ws = new WebSocket(tab.webSocketDebuggerUrl);
+await new Promise((resolve, reject) => { ws.onopen = resolve; ws.onerror = reject; });
+let sequence = 0;
+const pending = new Map();
+ws.onmessage = ({ data }) => { const message = JSON.parse(data); const request = pending.get(message.id); if (request) { pending.delete(message.id); message.error ? request.reject(message.error) : request.resolve(message.result); } };
+const call = (method, params) => new Promise((resolve, reject) => { const id = ++sequence; pending.set(id, { resolve, reject }); ws.send(JSON.stringify({ id, method, params })); });
+const evaluate = async (expression) => (await call('Runtime.evaluate', { expression, returnByValue: true })).result.value;
+await evaluate(`document.getElementById('write-mode').click();document.querySelector('[data-tool=pen]').click();document.getElementById('record').click();`);
+const box = await evaluate(`document.getElementById('scene').getBoundingClientRect().toJSON()`);
+const before = await evaluate('currentPage().strokes.length');
+const x = box.x + box.width * 0.35, y = box.y + box.height * 0.46;
+const draw = async () => {
+  await call('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1 });
+  for (let i = 1; i <= 6; i++) await call('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + i * 8, y: y - Math.sin(i) * 6, button: 'left', buttons: 1 });
+  await call('Input.dispatchMouseEvent', { type: 'mouseReleased', x: x + 48, y, button: 'left', buttons: 0, clickCount: 1 });
+};
+await draw();
+const after = await evaluate('currentPage().strokes.length');
+const samples = await evaluate('currentPage().strokes.at(-1).points.length');
+const recorded = await evaluate('currentPage().strokes.at(-1).recorded');
+await evaluate(`document.getElementById('ink-lock').click()`);
+await draw();
+const locked = await evaluate('currentPage().strokes.length');
+await evaluate(`document.getElementById('ink-lock').click();document.getElementById('record').click()`);
+ws.close();
+if (after !== before + 1 || samples < 6 || !recorded || locked !== after) throw new Error(JSON.stringify({ before, after, samples, recorded, locked }));
+console.log(JSON.stringify({ pass: true, addedStrokes: after - before, timedSamples: samples, recorded, lockedInputRejected: locked === after }, null, 2));

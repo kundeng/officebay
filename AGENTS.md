@@ -8,6 +8,8 @@ OfficeBay is the fork at `kundeng/officebay`; upstream is `genspark-ai/genoffice
 
 Preserve the existing Markdown, Docs, Sheets, Slides, PDF and HTML editor implementations. Add a separate note-document type containing multiple organized notes. Pages use Excalidraw and one shared MDLayers core. Build the extension mechanism and document manager so subsequent features attach through contributions.
 
+MDLayers is unimplemented. Follow `docs/design/editor-adaptation.md` to read, measure and adapt working editors/layers before building shared components. Animated replay follows `docs/design/replay.md`: timed observed actions alongside compatible page files and immutable checkpoints, with explicit gaps for unrecorded changes.
+
 White-labeling and removal of the original hosted dependency are separate from notebook feature changes. Enumerate their necessary existing-app edits and protect inherited behavior with regression tests. Keep required provenance and licenses.
 
 ## Required reading and process
